@@ -21,6 +21,8 @@
     int symbol_count = 0;
     int i = 0;
     char cval;
+    int a;
+    int b;
 %}
 
 %union{
@@ -40,10 +42,8 @@
 
 %%
 
-    S       :   S E NEWLINE         { printf("MAIN EXIT %s\n", $2);
-                                      }//printf("%d", digCheck($1)); }
-            |   E NEWLINE           { printf("MAIN EXIT 2 %s\n", $1);
-                                      }//printf("%d", digCheck($1)); }
+    S       :   S E NEWLINE         {  }
+            |   E NEWLINE           {  }
             ;
 
     E       :   VAL                 { $$ = $1; }
@@ -133,22 +133,19 @@ int getVal(char id) {
 }
 
 void setVal(char id, int value) {
-    printf("%i\n", symbol_count);
     if (symbol_count > 0) {
         for (i = 0; i < symbol_count; i++) {
-            printf("%i\n", i);
-            if (symbol_table[i][0] == id) {
+            if (symbol_table[i][0] == (int) id) {
                 symbol_table[i][1] = value;
-                printf("%i\n", symbol_table[i][0]);
                 return;
             }
         }
     }
     printf("Now, ID: %i\n", symbol_table[symbol_count][0]);
     printf("and Val: %i\n", symbol_table[symbol_count][1]);
-    symbol_table[symbol_count][0] = id;
-    symbol_table[symbol_count][1] = value;
-    printf("Now, ID: %s\n", symbol_table[symbol_count][0]);
+    symbol_table[0][0] = (int) id;
+    symbol_table[0][1] = (int) value;
+    printf("Now, ID: %i\n", symbol_table[symbol_count][0]);
     printf("and Val: %i\n", symbol_table[symbol_count][1]);
     symbol_count++;
 }
