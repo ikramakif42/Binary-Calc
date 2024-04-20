@@ -16,6 +16,7 @@
     char* doComp(char* x, char* y, char* z);
     bool digCheck(char*);
     char* toString(int);
+    char* writeChar(char);
 
     int symbol_table[100][2];
     int symbol_count = 0;
@@ -52,7 +53,11 @@
 
     VAL     :   IDR                 { 
                                         if (!hasVal($1)) { $$ = "*"; }
-                                        else { $$ = ""; $$[0] = $1; }
+                                        else { 
+                                            char temp[2];
+                                            sprintf(temp, "%c", $1);
+                                            $$ = strdup(temp);
+                                        }
                                     }
             |   NUM                 { $$ = toString($1); }
             |   BOOL                { $$ = $1; }
@@ -78,10 +83,8 @@
                                     }
             ;
     
-    NUM     :   OP NUM CM NUM       {
-                                        $$ = doOp($1, $2, $4);
-                                    }
-            |   NMBR                { $$ = $1; }//printf("NUMBER %d\n", $1); }
+    NUM     :   OP NUM CM NUM       { $$ = doOp($1, $2, $4); }
+            |   NMBR                { $$ = $1; }
             ;
 
     OP      :   ADD                 { $$ = $1; }
@@ -97,10 +100,7 @@
             |   LSE                 { $$ = $1; }
             |   EQU                 { $$ = $1; }
 
-    PR      :   PRINT E             { 
-                                        $$ = $2;
-                                        doPrint($2);
-                                    }
+    PR      :   PRINT E             { $$ = $2; doPrint($2); }
 
 %%
 
@@ -141,12 +141,8 @@ void setVal(char id, int value) {
             }
         }
     }
-    printf("Now, ID: %i\n", symbol_table[symbol_count][0]);
-    printf("and Val: %i\n", symbol_table[symbol_count][1]);
-    symbol_table[0][0] = (int) id;
-    symbol_table[0][1] = (int) value;
-    printf("Now, ID: %i\n", symbol_table[symbol_count][0]);
-    printf("and Val: %i\n", symbol_table[symbol_count][1]);
+    symbol_table[symbol_count][0] = (int) id;
+    symbol_table[symbol_count][1] = value;
     symbol_count++;
 }
 
@@ -167,7 +163,7 @@ int doOp(char* op, int x, int y) {
 
 void doPrint(char* val) {
     if (strcmp(val, "*") == 0) {
-        val = "NO VAL ASSIGN TO X";
+        val = "NO VAL ASSIGNED";
         printf("%s\n", val);
     }
     else if (strlen(val) > 1 || (*val >= '0' && *val <= '9')){
@@ -181,7 +177,26 @@ void doPrint(char* val) {
 }
 
 char* doComp(char* x, char* y, char* z) {
-    printf("COMP TIME\n");
+    if (strcmp(y, "*") == 0 || strcmp(z, "*") == 0 ) {
+        y = "NO VAL ASSIGNED";
+        printf("%s\n", y);
+    }
+
+    if (strlen(y) > 1 || (*y >= '0' && *y <= '9')){
+        int n1 = *y - '0';
+    }
+    else {
+        int n1 = getVal((char) y[0]);
+    }
+
+    if (strlen(z) > 1 || (*z >= '0' && *z <= '9')){
+        int n2 = *z - '0';
+    }
+    else {
+        int n2 = getVal((char) z[0]);
+    }
+    
+    printf("%s -> %s and %s\n", x, y, z);
     return "SUCCESS";
 }
 
@@ -202,4 +217,11 @@ char* toString(int n) {
         sprintf(str, "%d", n);
     }
     return str;
+}
+
+char* writeChar(char ch) {
+    char *ptr = (char*) malloc(sizeof(char));
+    if (ptr == NULL) { printf("NULL!\n"); return NULL; }
+    *ptr = ch;
+    return ptr;
 }

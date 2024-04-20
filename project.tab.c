@@ -87,6 +87,7 @@
     char* doComp(char* x, char* y, char* z);
     bool digCheck(char*);
     char* toString(int);
+    char* writeChar(char);
 
     int symbol_table[100][2];
     int symbol_count = 0;
@@ -97,7 +98,7 @@
 
 
 /* Line 189 of yacc.c  */
-#line 101 "project.tab.c"
+#line 102 "project.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -148,7 +149,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 28 "project.y"
+#line 29 "project.y"
 
     int i;
     char* s;
@@ -157,7 +158,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 161 "project.tab.c"
+#line 162 "project.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -169,7 +170,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 173 "project.tab.c"
+#line 174 "project.tab.c"
 
 #ifdef short
 # undef short
@@ -461,9 +462,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    45,    45,    47,    51,    52,    55,    59,    60,    63,
-      64,    65,    70,    75,    83,    86,    89,    90,    91,    93,
-      96,    97,    98,    99,   100,   102
+       0,    46,    46,    47,    50,    51,    54,    62,    63,    66,
+      67,    68,    73,    78,    86,    87,    90,    91,    92,    94,
+      97,    98,    99,   100,   101,   103
 };
 #endif
 
@@ -1395,75 +1396,77 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 45 "project.y"
-    { printf("MAIN EXIT %s\n", (yyvsp[(2) - (3)].s));
-                                      ;}
+#line 46 "project.y"
+    {  ;}
     break;
 
   case 3:
 
 /* Line 1455 of yacc.c  */
 #line 47 "project.y"
-    { printf("MAIN EXIT 2 %s\n", (yyvsp[(1) - (2)].s));
-                                      ;}
+    {  ;}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 51 "project.y"
+#line 50 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 52 "project.y"
+#line 51 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 55 "project.y"
+#line 54 "project.y"
     { 
                                         if (!hasVal((yyvsp[(1) - (1)].c))) { (yyval.s) = "*"; }
-                                        else { (yyval.s) = ""; (yyval.s)[0] = (yyvsp[(1) - (1)].c); }
+                                        else { 
+                                            char temp[2];
+                                            sprintf(temp, "%c", (yyvsp[(1) - (1)].c));
+                                            (yyval.s) = strdup(temp);
+                                        }
                                     ;}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 59 "project.y"
+#line 62 "project.y"
     { (yyval.s) = toString((yyvsp[(1) - (1)].i)); ;}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 60 "project.y"
+#line 63 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 63 "project.y"
+#line 66 "project.y"
     { (yyval.c) = (yyvsp[(1) - (1)].c); ;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 64 "project.y"
+#line 67 "project.y"
     { (yyval.c) = (yyvsp[(2) - (4)].c); setVal((yyvsp[(2) - (4)].c), (yyvsp[(4) - (4)].i)); printf("SUCCESS\n"); ;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 65 "project.y"
+#line 68 "project.y"
     {   
                                         (yyval.c) = (yyvsp[(2) - (4)].c);
                                         if (!hasVal((yyvsp[(2) - (4)].c))) { (yyval.c) = 42; printf("NO VAL ASSIGNED TO %c\n", (yyvsp[(2) - (4)].c)); }
@@ -1474,7 +1477,7 @@ yyreduce:
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 70 "project.y"
+#line 73 "project.y"
     {   
                                         (yyval.c) = (yyvsp[(2) - (4)].i);
                                         if (!hasVal((yyvsp[(4) - (4)].c))) { (yyval.c) = 42; printf("NO VAL ASSIGNED TO %c\n", (yyvsp[(4) - (4)].c)); }
@@ -1485,7 +1488,7 @@ yyreduce:
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 75 "project.y"
+#line 78 "project.y"
     {   
                                         (yyval.c) = (yyvsp[(2) - (4)].c);
                                         if (!hasVal((yyvsp[(2) - (4)].c))) { (yyval.c) = 42; printf("NO VAL ASSIGNED TO %c\n", (yyvsp[(2) - (4)].c)); }
@@ -1497,96 +1500,91 @@ yyreduce:
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 83 "project.y"
-    {
-                                        (yyval.i) = doOp((yyvsp[(1) - (4)].s), (yyvsp[(2) - (4)].i), (yyvsp[(4) - (4)].i));
-                                    ;}
+#line 86 "project.y"
+    { (yyval.i) = doOp((yyvsp[(1) - (4)].s), (yyvsp[(2) - (4)].i), (yyvsp[(4) - (4)].i)); ;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 86 "project.y"
+#line 87 "project.y"
     { (yyval.i) = (yyvsp[(1) - (1)].i); ;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 89 "project.y"
+#line 90 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 90 "project.y"
+#line 91 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 91 "project.y"
+#line 92 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 93 "project.y"
+#line 94 "project.y"
     { (yyval.s) = doComp((yyvsp[(1) - (4)].s), (yyvsp[(2) - (4)].s), (yyvsp[(4) - (4)].s)); ;}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 96 "project.y"
+#line 97 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 97 "project.y"
+#line 98 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 98 "project.y"
+#line 99 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 99 "project.y"
+#line 100 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 100 "project.y"
+#line 101 "project.y"
     { (yyval.s) = (yyvsp[(1) - (1)].s); ;}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 102 "project.y"
-    { 
-                                        (yyval.s) = (yyvsp[(2) - (2)].s);
-                                        doPrint((yyvsp[(2) - (2)].s));
-                                    ;}
+#line 103 "project.y"
+    { (yyval.s) = (yyvsp[(2) - (2)].s); doPrint((yyvsp[(2) - (2)].s)); ;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1590 "project.tab.c"
+#line 1588 "project.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1798,7 +1796,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 107 "project.y"
+#line 105 "project.y"
 
 
 void yyerror(char *msg){
@@ -1832,20 +1830,14 @@ int getVal(char id) {
 void setVal(char id, int value) {
     if (symbol_count > 0) {
         for (i = 0; i < symbol_count; i++) {
-            printf("%i\n", i);
-            if (symbol_table[i][0] == id) {
+            if (symbol_table[i][0] == (int) id) {
                 symbol_table[i][1] = value;
-                printf("%i\n", symbol_table[i][0]);
                 return;
             }
         }
     }
-    printf("Now, ID: %i\n", symbol_table[symbol_count][0]);
-    printf("and Val: %i\n", symbol_table[symbol_count][1]);
-    symbol_table[0][0] = (int) id;
-    symbol_table[0][1] = (int) value;
-    printf("Now, ID: %i\n", symbol_table[symbol_count][0]);
-    printf("and Val: %i\n", symbol_table[symbol_count][1]);
+    symbol_table[symbol_count][0] = (int) id;
+    symbol_table[symbol_count][1] = value;
     symbol_count++;
 }
 
@@ -1866,7 +1858,7 @@ int doOp(char* op, int x, int y) {
 
 void doPrint(char* val) {
     if (strcmp(val, "*") == 0) {
-        val = "NO VAL ASSIGN TO X";
+        val = "NO VAL ASSIGNED";
         printf("%s\n", val);
     }
     else if (strlen(val) > 1 || (*val >= '0' && *val <= '9')){
@@ -1880,7 +1872,26 @@ void doPrint(char* val) {
 }
 
 char* doComp(char* x, char* y, char* z) {
-    printf("COMP TIME\n");
+    if (strcmp(y, "*") == 0 || strcmp(z, "*") == 0 ) {
+        y = "NO VAL ASSIGNED";
+        printf("%s\n", y);
+    }
+
+    if (strlen(y) > 1 || (*y >= '0' && *y <= '9')){
+        int n1 = *y - '0';
+    }
+    else {
+        int n1 = getVal((char) y[0]);
+    }
+
+    if (strlen(z) > 1 || (*z >= '0' && *z <= '9')){
+        int n2 = *z - '0';
+    }
+    else {
+        int n2 = getVal((char) z[0]);
+    }
+    
+    printf("%s -> %s and %s", x, y, z);
     return "SUCCESS";
 }
 
@@ -1901,4 +1912,11 @@ char* toString(int n) {
         sprintf(str, "%d", n);
     }
     return str;
+}
+
+char* writeChar(char ch) {
+    char *ptr = (char*) malloc(sizeof(char));
+    if (ptr == NULL) { printf("NULL!\n"); return NULL; }
+    *ptr = ch;
+    return ptr;
 }
