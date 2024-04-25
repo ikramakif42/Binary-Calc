@@ -51,8 +51,10 @@
      ADD = 267,
      SUB = 268,
      MUL = 269,
-     ID = 270,
-     CM = 271
+     UNEX = 270,
+     EXIT = 271,
+     ID = 272,
+     CM = 273
    };
 #endif
 
@@ -63,7 +65,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 29 "project.y"
+#line 33 "project.y"
 
     int i;
     char* s;
@@ -72,7 +74,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 76 "project.tab.h"
+#line 78 "project.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

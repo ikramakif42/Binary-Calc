@@ -21,9 +21,10 @@
 "ADD"       { yylval.s = strdup(yytext); return ADD; }
 "SUB"       { yylval.s = strdup(yytext); return SUB; }
 "MUL"       { yylval.s = strdup(yytext); return MUL; }
+"EXIT"      { yylval.s = strdup(yytext); return EXIT; }
 ","         { yylval.c = yytext[0]; return CM; }
-.           { printf("UNEXPECTED COMMAND\n"); }
 \n          { return NEWLINE; }
+.           { yylval.s = strdup(yytext); return UNEX; }
 %%
 
 int yywrap() {
